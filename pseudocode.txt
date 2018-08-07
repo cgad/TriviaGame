@@ -1,0 +1,40 @@
+INITIAL PAGE
+// title
+// start button
+
+ON CLICK OF START BUTTON
+// remove button
+// display timer 30s
+// display first question
+// display answer set
+
+ON CLICK OF ANSWER
+// highlight answer chosen
+// if right
+    // correct++
+    // "You're right!"
+    // display correct answer
+    // delay 5 seconds
+    // display next question
+    // restart timer
+// if wrong
+    // incorrect++
+    // "Nope!"
+    // display correct answer
+    // delay 5 seconds
+    // display next question
+    // restart timer
+// if no answer before time up
+    // unanswered++
+    // "Where were you??"
+    // display correct answer
+    // delay 5 seconds
+    // display next question
+    // restart timer
+
+IN COMMON
+// function endRound()
+    // display correct answer
+    // delay 5 seconds
+    // display next question
+    // restart timer
