@@ -5,9 +5,7 @@ var incorrect = 0;
 var unanswered = 0;
 var timeLeft = 30;
 var intervalId;
-var counter;
 var timerOn = false;
-var userClick = false;
 
 var questions = [
     {
@@ -36,9 +34,13 @@ function hideButton() {
 
 function timeUp() {
     $("#timer").html("<p>Time's up!</p>");
+    $("#result").html("<strong>Where were you?</strong>");
+    stop();
 }
 
 function timer() {
+    timerOn = false;
+    timeLeft = 30;
     intervalId = setInterval(timeUp, 1000 * 30);
     setInterval(decrement, 1000);
 }
@@ -53,26 +55,64 @@ function decrement() {
         $("#timer").html("<p>Time remaining: " + timeLeft);
         timeLeft--;
         if (timeLeft == 0) {
-            stop();
             timeUp();
-        }
-        if (userClick == true) {
-            stop();
         }
     }
 }
 
+var qArrayPos = 0;
+var correctAnswer;
+var playerAnswer;
+
+function contentPrint() {
+    timer();
+    $("#timer").html("<p>Time remaining: " + timeLeft);
+    $("#show-answer").html("");
+    $("#question").html("<h3>" + questions[qArrayPos].q + "</h3>"); // CHANGE HARD CODE
+    $("#answers").html("");
+    for (var i = 0; i < questions[qArrayPos].a.length; i++) {
+        $("#answers").append("<p id='answer" + i + "' class='ans'>" + questions[qArrayPos].a[i] + "</p>");
+    }
+}
+
+function rightAnswer() {
+    $("#result").html("<strong>You're right!</strong>");
+    correct++;
+    $("#right").text(correct);
+    $("#show-answer").html("The correct answer is: " + questions[qArrayPos].c);
+    qArrayPos++;
+    stop();
+}
+
+function wrongAnswer() {
+    $("#result").html("<strong>You're wrong!</strong>");
+    incorrect++;
+    $("#wrong").text(incorrect);
+    $("#show-answer").html("The correct answer is: " + questions[qArrayPos].c);
+    qArrayPos++;
+    stop();
+}
 
 // GAME
 
-$(".start").on("click",function () {
+
+$(".start").on("click", function() {
     hideButton();
-    timer();
-    $("#question").html("<h3>" + questions[0].q + "</h3>"); // CHANGE HARD CODE
-    for (var i = 0; i < questions[0].a.length; i++) {
-        $("#answers").append("<p>" + questions[0].a[i] + "</p>");
-    }
+    contentPrint();
 });
 
-// var correctAnswer;
-// var playerAnswer;
+$("#answers").on("click", ".ans", function() { // .ans is child of the div // event delegation
+    var playerAnswer = $(this).html();
+    console.log(playerAnswer);
+    console.log(questions[qArrayPos].c);
+    if (playerAnswer === questions[qArrayPos].c) {
+        rightAnswer();
+        setTimeout(contentPrint, 5000);
+    } else {
+        wrongAnswer();
+        setTimeout(contentPrint, 5000);
+    }
+    // if (timeUp()) {
+        
+    // }
+})
