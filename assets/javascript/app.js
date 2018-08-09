@@ -42,6 +42,7 @@ function timeUp() {
 }
 
 function timer() {
+    clearInterval(intervalId);
     timerOn = false;
     timeLeft = 20;
     intervalId = setInterval(timeUp, 1000 * 20);
@@ -96,6 +97,7 @@ function rightAnswer() {
     $("#timer").html("");
     qArrayPos++;
     stop();
+    setTimeout(contentPrint, 3000);
 }
 
 function wrongAnswer() {
@@ -107,6 +109,7 @@ function wrongAnswer() {
     $("#timer").html("");
     qArrayPos++;
     stop();
+    setTimeout(contentPrint, 3000);
 }
 
 function endGame() {
@@ -135,10 +138,8 @@ $("#answers").on("click", ".ans", function() { // .ans is child of the div // ev
 
     if (playerAnswer === questions[qArrayPos].c) {
         rightAnswer();
-        setTimeout(contentPrint, 3000);
     } else {
-        wrongAnswer();
-        setTimeout(contentPrint, 3000);
+        wrongAnswer();      
     }
 
     clicked = true;
