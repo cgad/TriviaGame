@@ -3,9 +3,10 @@
 var correct = 0;
 var incorrect = 0;
 var unanswered = 0;
-var timeLeft = 30;
+var timeLeft = 20;
 var intervalId;
 var timerOn = false;
+var clicked = false;
 
 var questions = [
     {
@@ -25,29 +26,32 @@ var questions = [
     }
 ];
 
-
-// FUNCTIONS
-
-function hideButton() {
-    $(".start").remove();
-}
-
 function timeUp() {
     $("#timer").html("<p>Time's up!</p>");
     $("#result").html("<strong>Where were you?</strong>");
+    unanswered++;
+    $("#no-answer").html("Unanswered: " + unanswered);
+    $("#show-answer").html("The correct answer is: " + questions[qArrayPos].c);
+    $("#answers").html("");
     stop();
+    setTimeout(contentPrint, 3000);
+    qArrayPos++;
+    if (unanswered == questions.length) {
+        endGame();
+    }
 }
 
 function timer() {
     timerOn = false;
-    timeLeft = 30;
-    intervalId = setInterval(timeUp, 1000 * 30);
+    timeLeft = 20;
+    intervalId = setInterval(timeUp, 1000 * 20);
     setInterval(decrement, 1000);
 }
 
 function stop() {
     clearInterval(intervalId);
     timerOn = true;
+    clicked = false;
 }
 
 function decrement() {
@@ -65,21 +69,31 @@ var correctAnswer;
 var playerAnswer;
 
 function contentPrint() {
-    timer();
-    $("#timer").html("<p>Time remaining: " + timeLeft);
-    $("#show-answer").html("");
-    $("#question").html("<h3>" + questions[qArrayPos].q + "</h3>"); // CHANGE HARD CODE
-    $("#answers").html("");
-    for (var i = 0; i < questions[qArrayPos].a.length; i++) {
-        $("#answers").append("<p id='answer" + i + "' class='ans'>" + questions[qArrayPos].a[i] + "</p>");
+    if (correct + incorrect + unanswered < questions.length) {
+        timer();
+        $("#timer").html("<p>Time remaining: " + timeLeft);
+        $("#right").html("Correct: " + correct);
+        $("#wrong").html("Incorrect: " + incorrect);
+        $("#no-answer").html("Unanswered: " + unanswered);
+        $("#show-answer").html("");
+        $("#result").html("");
+        $("#question").html("<h3>" + questions[qArrayPos].q + "</h3>");
+        $("#answers").html("");
+        for (var i = 0; i < questions[qArrayPos].a.length; i++) {
+            $("#answers").append("<p id='answer" + i + "' class='ans'>" + questions[qArrayPos].a[i] + "</p>");
+        }
+    } else if (correct + incorrect + unanswered == questions.length) {
+        endGame();
     }
 }
 
 function rightAnswer() {
     $("#result").html("<strong>You're right!</strong>");
     correct++;
-    $("#right").text(correct);
+    $("#right").html("Correct: " + correct);
     $("#show-answer").html("The correct answer is: " + questions[qArrayPos].c);
+    $("#answers").html("");
+    $("#timer").html("");
     qArrayPos++;
     stop();
 }
@@ -87,32 +101,57 @@ function rightAnswer() {
 function wrongAnswer() {
     $("#result").html("<strong>You're wrong!</strong>");
     incorrect++;
-    $("#wrong").text(incorrect);
+    $("#wrong").html("Incorrect: " + incorrect);
     $("#show-answer").html("The correct answer is: " + questions[qArrayPos].c);
+    $("#answers").html("");
+    $("#timer").html("");
     qArrayPos++;
     stop();
 }
 
+function endGame() {
+    $("#timer").html("");
+    $("#result").html("");
+    $("#show-answer").html("");
+    $("#question").html("");
+    $("#answers").html("");
+    $("#right").html("");
+    $("#wrong").html("");
+    $("#no-answer").html("");
+    $("#restart").html("<button type='button' class='btn btn-success start'>Restart Game</button>");
+    stop();
+    qArrayPos = 0;
+}
+
 // GAME
 
-
 $(".start").on("click", function() {
-    hideButton();
+    $(".start").remove();
     contentPrint();
 });
 
 $("#answers").on("click", ".ans", function() { // .ans is child of the div // event delegation
     var playerAnswer = $(this).html();
-    console.log(playerAnswer);
-    console.log(questions[qArrayPos].c);
+
     if (playerAnswer === questions[qArrayPos].c) {
         rightAnswer();
-        setTimeout(contentPrint, 5000);
+        setTimeout(contentPrint, 3000);
     } else {
         wrongAnswer();
-        setTimeout(contentPrint, 5000);
+        setTimeout(contentPrint, 3000);
     }
-    // if (timeUp()) {
-        
-    // }
+
+    clicked = true;
 })
+
+$("#restart").on("click", function() {
+    $("#restart").remove();
+    correct = 0;
+    incorrect = 0;
+    unanswered = 0;
+    $("#right").html("");
+    $("#wrong").html("");
+    $("#no-answer").html("");
+    contentPrint();
+});
+

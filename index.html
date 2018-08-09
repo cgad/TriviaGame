@@ -5,33 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Disney Trivia</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
+    <div class="main">
     
-    <h1>Disney Trivia</h1>
+        <h1>Disney Trivia</h1>
 
-    <button class="start">Start Game</button>
+        <button type="button" class="btn btn-success start">Start Game</button>
 
-    <section id="game">
-        <div id="timer">
-        </div>
+        <div id="restart"></div>
 
-        <section id="content">
+        <section id="game">
+            <section id="scoreboard">
+                <p><span id="right"></span></p>
+                <p><span id="wrong"></span></p>
+                <p><span id="no-answer"></span></p>
+            </section>
+
+            <p><span id="question"></span></p>
+            <div id="timer">
+            </div>
             <p><span id="result"></span></p>
             <p><span id="show-answer"></span></p>
-            <p><span id="question"></span></p>
 
             <div id="answers">
             </div>
         </section>
 
-        <section id="scoreboard">
-            <p>Correct: <span id="right">0</span></p>
-            <p>Incorrect: <span id="wrong">0</span></p>
-            <p>Unanswered: <span id="no-answer">0</span></p>
-        </section>
-    </section>
+    </div>
 
     <script src="assets/javascript/app.js"></script>
 </body>
