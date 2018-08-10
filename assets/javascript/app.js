@@ -5,8 +5,8 @@ var incorrect = 0;
 var unanswered = 0;
 var timeLeft = 20;
 var intervalId;
-var timerOn = false;
-var timerId;
+// var timerOn = false;
+// var timerId;
 var qArrayPos = 0;
 var playerAnswer;
 
@@ -31,19 +31,19 @@ var questions = [
 function timer() {
     timeLeft = 20;
     clearInterval(intervalId);
-    timerOn = false;
+    // timerOn = false;
     intervalId = setInterval(decrement, 1000);
 }
 
 function stop() {
     clearInterval(intervalId);
-    timerOn = true;
+    // timerOn = true;
 }
 
 function decrement() {
-    clearInterval(timerId);
-    timerId = setInterval(decrement, 1000);
-    if (!timerOn) {
+    // clearInterval(timerId);
+    // timerId = setInterval(decrement, 1000);
+    // if (!timerOn) {
         $("#timer").html("<p>Time remaining: " + timeLeft + " seconds");
         timeLeft--;
         if (timeLeft === -1) {
@@ -56,7 +56,7 @@ function decrement() {
             $("#no-answer").html("Unanswered: " + unanswered);
             $("#answers").html(""); 
         }
-    }
+    // }
 }
 
 function contentPrint() {
@@ -85,7 +85,7 @@ function rightAnswer() {
     $("#answers").html("");
     $("#timer").html("");
     qArrayPos++;
-    stop();
+    // stop();
     setTimeout(contentPrint, 3000);
 }
 
@@ -97,7 +97,7 @@ function wrongAnswer() {
     $("#answers").html("");
     $("#timer").html("");
     qArrayPos++;
-    stop();
+    // stop();
     setTimeout(contentPrint, 3000);
 }
 
@@ -125,7 +125,7 @@ $(".start").on("click", function() {
 
 $("#answers").on("click", ".ans", function() { // .ans is child of the div // event delegation
     var playerAnswer = $(this).html();
-
+    stop();
     if (playerAnswer === questions[qArrayPos].c) {
         rightAnswer();
     } else {
