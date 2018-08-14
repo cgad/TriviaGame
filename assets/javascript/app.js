@@ -28,8 +28,10 @@ var questions = [
     }
 ];
 
+// FUNCTIONS
+
 function timer() {
-    timeLeft = 20;
+    // timeLeft = 20;
     clearInterval(intervalId);
     // timerOn = false;
     intervalId = setInterval(decrement, 1000);
@@ -44,12 +46,14 @@ function decrement() {
     // clearInterval(timerId);
     // timerId = setInterval(decrement, 1000);
     // if (!timerOn) {
-        $("#timer").html("<p>Time remaining: " + timeLeft + " seconds");
         timeLeft--;
-        if (timeLeft === -1) {
+        $("#timer").html("<p>Time remaining: " + timeLeft + " seconds");
+        if (timeLeft === 0) {
             stop();
             $("#timer").html("<strong>Time's up!</strong>");
             $("#show-answer").html("The correct answer is: " + questions[qArrayPos].c);
+            // reset timeleft each time it = 0
+            timeLeft = 20;
             setTimeout(contentPrint, 3000);
             qArrayPos++;
             unanswered++;
@@ -61,6 +65,10 @@ function decrement() {
 
 function contentPrint() {
     if (correct + incorrect + unanswered < questions.length) {
+        // add initial time to html initially because it delays showing up by 1 second
+        // to make it show at 20...
+        $("#timer").html("<p>Time remaining: " + timeLeft + " seconds");
+        // then calling timer() makes it show at 19, 18 etc.
         timer();
         $("#right").html("Correct: " + correct);
         $("#wrong").html("Incorrect: " + incorrect);
@@ -86,6 +94,8 @@ function rightAnswer() {
     $("#timer").html("");
     qArrayPos++;
     // stop();
+    // reset timeleft each time it = 0
+    timeLeft = 20;
     setTimeout(contentPrint, 3000);
 }
 
@@ -98,6 +108,8 @@ function wrongAnswer() {
     $("#timer").html("");
     qArrayPos++;
     // stop();
+    // reset timeleft each time it = 0
+    timeLeft = 20;
     setTimeout(contentPrint, 3000);
 }
 
