@@ -12,6 +12,18 @@ body {
     text-align: center;
 }
 
+h1 {
+    padding: 10px;
+}
+
+h4 {
+    margin: 10px;
+}
+
+h5 {
+    margin-bottom: 20px;
+}
+
 .ans {
     font-weight: 700;
 }

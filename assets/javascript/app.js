@@ -10,19 +10,34 @@ var playerAnswer;
 
 var questions = [
     {
-        q: "Who is Pumba's best buddy?",
+        q: 'In "The Lion King", who is the best buddy of Pumba?',
         a: ["Timone","Simba","Nala","Scar"],
         c: "Timone"
     },
     {
-        q: "Who is Aladdin's love interest?",
+        q: 'In "Aladdin", who is the love interest of Aladdin?',
         a: ["Mulan","Jasmine","Pocahontas","Cinderella"],
         c: "Jasmine"
     },
     {
-        q: "What kind of creature is Shrek?",
-        a: ["Dragon","Toad","Ogre","Wizard"],
-        c: "Ogre"
+        q: 'In "Tarzan," what kind of creature is Tarzan?',
+        a: ["Chimpanzee","Ape","Bonobo","Human"],
+        c: "Human"
+    },
+    {
+        q: 'In "Cinderella", which glass slipper did Cinderella leave at the ball?',
+        a: ["Left","Right","Both","Neither"],
+        c: "Left"
+    },
+    {
+        q: 'Which of these Disney "Princesses" is an actual princess?',
+        a: ["Moana","Mulan","Elsa","Pocahontas"],
+        c: "Elsa"
+    },
+    {
+        q: 'In "Mulan", what must we be as swift as?',
+        a: ["A great typhoon","A coursing river","A raging fire","a lion on the prowl"],
+        c: "A coursing river"
     }
 ];
 
@@ -107,7 +122,7 @@ function endGame() {
     $("#show-answer").html("");
     $("#question").html("");
     $("#answers").html("");
-    $("#previous").html("<p></p><h5>Your previous score was</h5>");
+    $("#previous").html("<p></p><h6>Your previous score was:</h6>");
     $("#restart").html("<p></p><button type='button' class='btn btn-success start'>Restart Game</button>");
     stop();
     qArrayPos = 0;
