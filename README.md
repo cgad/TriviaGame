@@ -1,5 +1,4 @@
 # TriviaGame
-Homework 5: advanced
 
 ### Objective
 Answer correctly each multiple choice Disney-themed trivia question.
